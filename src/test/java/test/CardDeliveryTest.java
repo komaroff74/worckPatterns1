@@ -39,8 +39,7 @@ class DeliveryTest {
         $(byText("Запланировать")).click();
         $(byText("Успешно!")).shouldBe(visible, Duration.ofSeconds(15));
         $("[data-test-id=replan-notification] .notification__content");
-        $("[data-test-id=success-notification]").shouldHave(exactText("Встреча успешно запланирована на" +
-                firstMeetingDate), Duration.ofSeconds(15)).shouldBe(visible);
+        $("[data-test-id=success-notification]").shouldHave(exactText("Встреча успешно запланирована на " + firstMeetingDate), Duration.ofSeconds(15)).shouldBe(visible);
 
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id=date] input").setValue(secondMeetingDate);
