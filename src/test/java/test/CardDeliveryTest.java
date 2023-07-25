@@ -10,6 +10,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
 class DeliveryTest {
@@ -42,17 +43,13 @@ class DeliveryTest {
 
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.BACK_SPACE);
         $("[data-test-id=date] input").setValue(secondMeetingDate);
-        $(byText("Запланировать")).click();
-        $("[data-test-id=replan-notification] .notification__content");
-        $("[data-test-id=replan-notification] button").shouldHave(text("У вас уже запланирована встреча на другую дату. Перепланировать?"), Duration.ofSeconds(15)).shouldBe(visible);
-        $("[data-test-id=replan-notification]. button").click();
-
-        $("[data-test-id=success-notification] .notification__content");
-        $("[data-test-id=notification__content]").shouldHave(exactText("Встреча успешно запланирована на"
-                + secondMeetingDate), Duration.ofSeconds(15)).shouldBe(visible);
-
+        $$("button").find(exactText("Запланировать")).click();
+        $("[data-test-id=replan-notification]").shouldHave(text("Необходимо подтверждение"), Duration.ofSeconds(15)).shouldBe(visible);
+        $$("button").find(exactText("Перепланировать")).click();
+        $("[data-test-id=success-notification]").shouldHave(text("Встреча успешно запланирована на " + secondMeetingDate), Duration.ofSeconds(15)).shouldBe(visible);
     }
 }
+
 
 
         // TODO: добавить логику теста в рамках которого будет выполнено планирование и перепланирование встречи.
